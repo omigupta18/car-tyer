@@ -1,0 +1,540 @@
+Here's a complete, fully functional beauty parlor website with HTML, CSS, and JavaScript:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glamour Beauty Parlor - Book Your Beauty Today</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23ff6b9d" width="1200" height="600"/><circle fill="%23c44569" opacity="0.3" cx="300" cy="200" r="150"/><circle fill="%23ffd700" opacity="0.2" cx="900" cy="400" r="120"/></svg>');
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 70px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ffd700;
+            color: #333;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #c44569;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: #ff6b9d;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            color: #c44569;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 1rem 0;
+        }
+
+        /* Booking Form */
+        .booking-container {
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .service-select {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .service-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .service-checkbox input[type="checkbox"] {
+            width: auto;
+        }
+
+        .book-btn {
+            background: #ffd700;
+            color: #333;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+        }
+
+        /* Price Summary */
+        .price-summary {
+            background: rgba(255,255,255,0.2);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .total-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .about-image {
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            height: 400px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .social-links {
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ff6b9d;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ff6b9d;
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .service-select {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Confirmation Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .close {
+            float: right;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #ff6b9d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">✨ Glamour Beauty</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#booking">Book Now</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>✨ Welcome to Glamour Beauty</h1>
+            <p>Experience luxury beauty treatments with our expert stylists. Book your transformation today!</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdCoPjXNquA-XjrW2b3hUanjW8HHP5LI2DXkYbi0F6RyMvtqQ/viewform?usp=publish-editor" class="cta-button"> Book Appointment <i class="fas fa-calendar"></i></a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2>Our Premium Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-cut"></i></div>
+                    <h3>Haircut & Styling</h3>
+                    <div class="price">$45 - $85</div>
+                    <p>Professional haircut, styling, and treatments for all hair types.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+                    <h3>Manicure & Pedicure</h3>
+                    <div class="price">$35 - $65</div>
+                    <p>Relaxing hand and foot care with premium nail polish and treatments.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-spa"></i></div>
+                    <h3>Facial Treatments</h3>
+                    <div class="price">$60 - $120</div>
+                    <p>Deep cleansing, hydration, and anti-aging facial therapies.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-hand-sparkles"></i></div>
+                    <h3>Hand Massage</h3>
+                    <div class="price">$25 - $45</div>
+                    <p>Relaxing hand massage with essential oils and moisturizing treatments.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-feet"></i></div>
+                    <h3>Foot Massage</h3>
+                    <div class="price">$30 - $55</div>
+                    <p>Therapeutic foot massage to relieve stress and improve circulation.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-head-side-virus"></i></div>
+                    <h3>Head Massage</h3>
+                    <div class="price">$35 - $60</div>
+                    <p>Scalp massage for relaxation, hair growth, and stress relief.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-magic"></i></div>
+                    <h3>Full Body Waxing</h3>
+                    <div class="price">$50 - $100</div>
+                    <p>Professional waxing services for smooth, long-lasting results.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Luxury Package</h3>
+                    <div class="price">$150+</div>
+                    <p>Complete beauty transformation - all services included!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 style="color: #333;">Book Your Appointment</h2>
+            <div class="booking-container">
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-day"></i> Preferred Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-clock"></i> Preferred Time</label>
+                        <select id="time" required>
+                            <option value="">Select Time</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="3:00 PM">3:00 PM</option>
+                            <option value="4:00 PM">4:00 PM</option>
+                            <option value="5:00 PM">5:00 PM</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-list"></i> Select Services</label>
+                        <div class="service-select">
+                            <label class="service-checkbox">
+                                <input type="checkbox" name="service" value="haircut" data-price="65"> Haircut & Styling ($65)
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" name="service" value="manicure" data-price="45"> Manicure ($45)
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" name="service" value="pedicure" data-price="55"> Pedicure ($55)
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" name="service" value="facial" data-price="85"> Facial ($85)
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" name="service" value="hand-massage" data-price="35"> Hand Massage ($35)
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" name="service" value="foot-massage" data-price="45"> Foot Massage ($45)
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" name="service" value="head-massage" data-price="50"> Head Massage ($50)
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" name="service" value="waxing" data-price="75"> Full Body Waxing ($75)
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-comment"></i> Special Requests</label>
+                        <textarea rows="4" id="requests" placeholder="Any special requirements?"></textarea>
+                    </div>
+                    
+                    <div class="price-summary">
+                        <div>Selected Services: <span id="selectedServices">None</span></div>
+                        <div class="total-price">Total: $<span id="totalPrice">0</span></div>
+                    </div>
+                    
+                    <button type="submit" class="book-btn
